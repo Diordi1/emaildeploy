@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import RecruitmentCard from './_components/RecruitmentCard';
 import axios from 'axios';
 import Link from 'next/link';
+import Loader from '../_components/Loader';
 
 const App = () => {
   // Sample recruitment data
@@ -42,20 +43,24 @@ const App = () => {
   // ];
 
   // State for recruitment data and search term
+  let [loading,setLoading]=useState(false);
   const [recruitmentData, setRecruitmentData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
   // Filter data when search term changes
   useEffect(()=>{
+    setLoading(true);
     axios.get("https://recruitment-z6tf.onrender.com/getallemail").then((response) => {
       console.log(response.data);
       setRecruitmentData(response.data);
       setFilteredData(response.data);
+      setLoading(false);
     }).catch((error) => {
       console.error("Error fetching recruitment data:", error);
+      setLoading(false);
     });
-    console.log("fetching data")
+    
   },[])
   useEffect(() => {
     const filtered = recruitmentData.filter(item => 
@@ -84,6 +89,19 @@ const App = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {
+            loading&&
+           ( <div className="min-h-screen flex items-center justify-center">
+            <div className='flex  flex-col'>
+              <p className='mb-4 font-bold md:text-2xl text-lg'>
+      
+            Getting Things Ready
+              </p>
+            <Loader />
+              </div>
+          </div>
+           )
+          }
       <header className="bg-white shadow py-6 px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4">
           <h1 className="text-2xl font-bold text-gray-800">Recruitment Dashboard</h1>

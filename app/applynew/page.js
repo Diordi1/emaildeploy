@@ -4,6 +4,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
+import Loader from '../_components/Loader';
 
 
 export default function ApplyForm() {
@@ -57,7 +58,7 @@ export default function ApplyForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setLoading(true);
    axios.post("https://recruitment-z6tf.onrender.com/mailrecuriter",{
     hrName: formData.hrName,
     role: formData.role,
@@ -65,10 +66,12 @@ export default function ApplyForm() {
     email: formData.email,
     subject: formData.subject
    }).then((response) => {
+    setLoading(false);
       console.log("Email sent successfully:", response);
     //   setIsSubmitting(true);
     toast.success("Email sent successfully!");
     }).catch((error) => {
+      setLoading(false);
       toast.error("Error sending email. Please try again.");
       console.error("Error sending email:", error);
     });
@@ -90,9 +93,21 @@ export default function ApplyForm() {
       setIsSubmitting(false);
     }
   };
-
+  let [loading,setLoading]=useState(false);
   return (
-    <>
+    <>{
+      loading&&
+     ( <div className="min-h-screen flex items-center justify-center">
+      <div className='flex  flex-col'>
+        <p className='mb-4 font-bold md:text-2xl text-lg'>
+
+      Getting Things Ready
+        </p>
+      <Loader />
+        </div>
+    </div>
+     )
+    }
     <Toaster/>
       <Head>
         <title>Submit Application | Recruitment Portal</title>
@@ -103,13 +118,13 @@ export default function ApplyForm() {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="p-8 w-full">
-              <div className="uppercase flex justify-between tracking-wide text-sm text-indigo-600 font-semibold mb-1">
-                <p>
+              <div className="uppercase flex md:flex-row flex-col md:justify-between tracking-wide text-sm text-indigo-600 font-semibold mb-1">
+                <p className='mb-2'>
 
                 Email Application Form
 </p>
-<p>
-  <Link href="/applied" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition shadow-sm">
+<p className=''>
+  <Link href="/applied" className="bg-blue-600 hover:bg-blue-700  text-white font-medium py-2 px-4 rounded transition shadow-sm">
   View Applied Jobs
 </Link>
 </p>
