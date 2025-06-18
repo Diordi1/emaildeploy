@@ -215,7 +215,7 @@ export default function ApplyForm() {
                 </div>
                 
                 {/* Subject */}
-                <div>
+                <div hidden={true}>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
                     Subject
                   </label>
