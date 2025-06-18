@@ -48,7 +48,7 @@ const App = () => {
 
   // Filter data when search term changes
   useEffect(()=>{
-    axios.get("http://localhost:8080/getallemail").then((response) => {
+    axios.get("https://recruitment-z6tf.onrender.com/getallemail").then((response) => {
       console.log(response.data);
       setRecruitmentData(response.data);
       setFilteredData(response.data);

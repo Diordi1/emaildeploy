@@ -58,7 +58,7 @@ export default function ApplyForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-   axios.post("http://localhost:8080/mailrecuriter",{
+   axios.post("https://recruitment-z6tf.onrender.com/mailrecuriter",{
     hrName: formData.hrName,
     role: formData.role,
     companyName: formData.companyName,
