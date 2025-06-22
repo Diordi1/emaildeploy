@@ -10,7 +10,7 @@ import Loader from '../_components/Loader';
 export default function ApplyForm() {
 
   const [formData, setFormData] = useState({
-    hrName: 'Dear hr',
+    hrName: 'Dear hiring manager',
     role: 'Fullstack Developer Intern',
     companyName: '',
     email: '',
@@ -59,7 +59,7 @@ export default function ApplyForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-   axios.post("https://recruitment-z6tf.onrender.com/mailrecuriter",{
+   axios.post("https://emailrecruit.onrender.com/mailrecuriter",{
     hrName: formData.hrName,
     role: formData.role,
     companyName: formData.companyName,
